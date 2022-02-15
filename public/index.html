@@ -16,9 +16,9 @@
                         <div class="mb-2">
                             <span class="font-weight-bold bg-white">{{currency(cartTotal)}}</span>
                             <button
-                                    :style="warningObject"
                                     @click="displayCart=!displayCart"
-                                    class="btn btn-success btn-sm ml-3"
+                                    class="btn btn-sm ml-3"
+                                    :class="cartBtn"
                                     id="cartDropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
@@ -64,10 +64,6 @@
             const App = {
                 data() {
                     return {
-                        warningObject: {
-                            backgroundColor: 'auto',
-                            border: 'transparent'
-                        },
                         borderStyle: {
                             border: '3px solid darkgreen',
                             borderRadius: '50%'
@@ -86,6 +82,13 @@
                         });
                 },
                 computed: {
+                    cartBtn() {
+                        return {
+                            'btn-secondary': this.cartTotal <= 100,
+                            'btn-success': this.cartTotal > 100,
+                            'btn-danger': this.cartTotal > 200
+                        }
+                    },
                     filteredProducts() {
                         return this.products.filter( item => (item.price < this.max))
                     },
@@ -96,7 +99,6 @@
                 methods: {
                     addToCart(product) {
                         this.cart.push(product);
-                        if (this.cartTotal >= 100) {this.warningObject.backgroundColor = 'red'}
                     },
                     currency(value) {
                         return '$' + Number.parseFloat(value).toFixed(2);
