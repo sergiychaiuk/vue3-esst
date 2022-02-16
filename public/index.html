@@ -75,6 +75,8 @@
                 <label class="form-label h2">Max Price (${{max}})</label>
                 <div class="badge bg-success ml-3">results: {{filteredProducts.length}}</div>
                 <input v-model.number="max" type="range" class="form-range" min="0" max="130" >
+                <custom-alert type="danger" close='true' v-if="cartTotal>100">
+                </custom-alert>
                 <transition-group name="products" appear>
                     <div v-for="(item, index) in filteredProducts" :key="item.id" id="item-list" class="row align-items-center">
                         <product :item="item" @add-to-cart="addToCart"></product>
@@ -117,6 +119,20 @@
                 }
             })
 
+            App.component('custom-alert', {
+                props: ['type', 'close'],
+                methods: {
+                    closeButton() {
+                        event.target.parentNode.remove()
+                    }
+                },
+                template: `
+                  <div :class="[(type ? 'alert-'+type : 'alert-secondary'), (close ? 'alert-dismissible' : '')]" class="alert" role="alert">
+                    <slot>Congrats on getting some items in your cart.</slot>
+                    <button v-if="close" @click="closeButton" type="button" class="btn-close" aria-label="Close"></button>
+                  </div>
+                `
+            })
             App.component('product', {
                 props: ['item'],
                 emits: ['addToCart'],
