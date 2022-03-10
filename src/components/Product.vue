@@ -11,7 +11,8 @@
     <h3 class="text-primary">{{ item.name }}</h3>
     <p class="mb-0">{{ item.description }}</p>
     <div class="h5 float-right">
-      <span class="label"></span><curr :amt="item.price"></curr>
+      <span class="label"></span>
+      <curr :amt="item.price"></curr>
     </div>
   </div>
 </template>
