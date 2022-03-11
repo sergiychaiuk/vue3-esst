@@ -1,6 +1,9 @@
 <template>
   <div class="col-2 m-auto">
-    <button @click="$emit('add-to-cart', item)" class="btn btn-success">
+    <button
+      @click="$parent.$parent.$emit('add-to-cart', item)"
+      class="btn btn-success"
+    >
       +
     </button>
   </div>

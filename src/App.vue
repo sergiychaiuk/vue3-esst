@@ -1,33 +1,32 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link>
-    |
-    <router-link to="/checkout">Checkout</router-link>
-  </nav>
+  <navbar :cart="cart" />
   <div class="container">
-    <router-view />
+    <router-view @addToCart="addToCart" />
   </div>
 </template>
+
+<script>
+import Navbar from '@/components/Navbar'
+export default {
+  data() {
+    return {
+      cart: []
+    }
+  },
+  components: {
+    Navbar
+  },
+  methods: {
+    addToCart(product) {
+      this.cart.push(product)
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 $primary: #6f42c1;
 @import 'node_modules/bootstrap/scss/bootstrap';
-
-.dropdown-clip {
-  overflow: hidden;
-}
-
-.dropdown-enter-active,
-.dropdown-leave-active {
-  transition: all 0.5s ease-in-out;
-  transform: auto;
-}
-
-.dropdown-enter-from,
-.dropdown-leave-to {
-  opacity: 0;
-  transform: translateY(-300px);
-}
 
 .products-enter-active,
 .products-leave-active {
