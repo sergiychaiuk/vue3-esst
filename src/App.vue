@@ -1,7 +1,16 @@
 <template>
-  <navbar :cart="cart" :cart-total="cartTotal" :cartQty="cartQty" />
+  <navbar
+    :cart="cart"
+    :cart-total="cartTotal"
+    :cart-qty="cartQty"
+    @delete-item="deleteItem"
+  />
   <div class="container">
-    <router-view :products="products" @addItem="addItem" />
+    <router-view
+      :products="products"
+      @addItem="addItem"
+      @delete-item="deleteItem"
+    />
   </div>
 </template>
 
@@ -40,6 +49,13 @@ export default {
         this.cart[whichProduct].qty++
       } else {
         this.cart.push({ product: product, qty: 1 })
+      }
+    },
+    deleteItem(id) {
+      if (this.cart[id].qty > 1) {
+        this.cart[id].qty--
+      } else {
+        this.cart.splice(id, 1)
       }
     }
   },
