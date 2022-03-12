@@ -10,6 +10,8 @@
       :products="products"
       @addItem="addItem"
       @delete-item="deleteItem"
+      :cart="cart"
+      :cart-total="cartTotal"
     />
   </div>
 </template>
